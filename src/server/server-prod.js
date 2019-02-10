@@ -28,7 +28,7 @@ app.get('*', (_ ,res) => {
   res.sendFile(HTML_FILE);
 })
 
-app.set('port', process.env.PORT || 80)
+app.set('port', process.env.PORT || 3000)
 app.listen(app.get('port'), (err) => {
     if(err){
       console.log(err)
