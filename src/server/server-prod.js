@@ -18,16 +18,16 @@ app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
 }))
 app.use(webpackHotMiddleware(compiler))
-app.get('/', (_ ,res) => {
-  res.sendFile(HTML_FILE);
-})
-
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(express.static(path.join(__dirname + '../../src')));
 app.use(express.static(path.join(__dirname + '../vendors')));
 app.use('/api', routes);
+app.get('*', (_ ,res) => {
+  res.sendFile(HTML_FILE);
+})
+
 app.set('port', process.env.PORT || 3000)
 app.listen(app.get('port'), (err) => {
     if(err){
