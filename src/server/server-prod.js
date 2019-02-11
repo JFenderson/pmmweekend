@@ -29,7 +29,7 @@ app.get('*', (_ ,res) => {
 })
 
 app.set('port', process.env.PORT || 3000)
-app.listen(app.get('port'),'localhost', (err) => {
+app.listen(app.get('port'),'0.0.0.0', (err) => {
     if(err){
       console.log(err)
     }else{
