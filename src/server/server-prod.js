@@ -29,7 +29,7 @@ app.get('*', (_ ,res) => {
 })
 
 app.set('port', 3000)
-app.listen(app.get('port'),'0.0.0.0', (err) => {
+app.listen(app.get('port'),'pmmweekend.com', (err) => {
     if(err){
       console.log(err)
     }else{
