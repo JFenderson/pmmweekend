@@ -67,7 +67,7 @@ $(document).ready(function () {
     let email = $('#email').val();
     let message = $('#message').val();
 
-    fetch(`http://0.0.0.0:3000/api/contact`, {
+    fetch(`https://0.0.0.0:3000/api/contact`, {
       method: 'POST',
       body: JSON.stringify({
         name: name, email: email, message: message
@@ -96,7 +96,7 @@ $(document).ready(function () {
     let location = $('#memberLocation').val();
     let crabYear = $('#memberCrabYear').val();
 
-    fetch(`http://0.0.0.0:3000/api/user/signup`, {
+    fetch(`https://0.0.0.0:3000/api/user/signup`, {
       method: 'POST', // or 'PUT'
       body: JSON.stringify({
         name: name, email: email, phoneNumber: number, location: location, crabYear: crabYear
@@ -170,7 +170,7 @@ $(document).ready(function () {
     if (tixType == 'individual') {
       if (tixQuantity == '1') {
         console.log('1 idv is hitting')
-        fetch(`http://0.0.0.0:3000/api/charge/tickets/idv/1`, {
+        fetch(`https://0.0.0.0:3000/api/charge/tickets/idv/1`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -196,7 +196,7 @@ $(document).ready(function () {
           })
       } else if (tixQuantity == '2') {
 
-        fetch(`http://0.0.0.0:3000/api/charge/tickets/idv/2`, {
+        fetch(`https://0.0.0.0:3000/api/charge/tickets/idv/2`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -221,7 +221,7 @@ $(document).ready(function () {
             }
           })
       } else if (tixQuantity == '3') {
-        fetch(`http://0.0.0.0:3000/api/charge/tickets/idv/3`, {
+        fetch(`https://0.0.0.0:3000/api/charge/tickets/idv/3`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -246,7 +246,7 @@ $(document).ready(function () {
             }
           })
       } else if (tixQuantity == '4') {
-        fetch(`http://0.0.0.0:3000/api/charge/tickets/idv/4`, {
+        fetch(`https://0.0.0.0:3000/api/charge/tickets/idv/4`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -271,7 +271,7 @@ $(document).ready(function () {
             }
           })
       } else if (tixQuantity == '5' ) {
-        fetch(`http://0.0.0.0:3000/api/charge/tickets/idv/5`, {
+        fetch(`https://0.0.0.0:3000/api/charge/tickets/idv/5`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -298,7 +298,7 @@ $(document).ready(function () {
       }
     } else {
       if (tixQuantity == '1' && tixType == 'space') {
-        fetch(`http://0.0.0.0:3000/api/charge/tickets/tntsp/1`, {
+        fetch(`https://0.0.0.0:3000/api/charge/tickets/tntsp/1`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -323,7 +323,7 @@ $(document).ready(function () {
             }
           })
       } else if (tixQuantity == '2' && tixType == 'space') {
-        fetch(`http://0.0.0.0:3000/api/charge/tickets/tntsp/2`, {
+        fetch(`https://0.0.0.0:3000/api/charge/tickets/tntsp/2`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -348,7 +348,7 @@ $(document).ready(function () {
             }
           })
       } else if (tixQuantity == '3' && tixType == 'space') {
-        fetch(`http://0.0.0.0:3000/api/charge/tickets/tntsp/3`, {
+        fetch(`https://0.0.0.0:3000/api/charge/tickets/tntsp/3`, {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -383,7 +383,7 @@ $(document).ready(function () {
 
     // console.log(token)
     
-    //     fetch(`http://0.0.0.0:3000/api/charge/tickets/idv/1`, {
+    //     fetch(`https://0.0.0.0:3000/api/charge/tickets/idv/1`, {
     //       method: "POST",
     //       headers: {
     //         'Accept': 'application/json',
