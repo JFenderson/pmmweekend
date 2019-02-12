@@ -18,21 +18,22 @@ app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
 }))
 app.use(webpackHotMiddleware(compiler))
-app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
+app.use(cors())
 app.use(express.static(path.join(__dirname + '../../src')));
 app.use(express.static(path.join(__dirname + '../vendors')));
-app.use('/api', routes);
 app.get('*', (_ ,res) => {
   res.sendFile(HTML_FILE);
 })
+app.use('/api', routes);
 
 app.set('port', process.env.PORT || 3000)
-app.listen(app.get('port'),'0.0.0.0', (err) => {
+const NODE_ENV = process.env.NODE_ENV || 'development';
+app.listen(app.get('port'), (err) => {
     if(err){
       console.log(err)
     }else{
-      console.log(`server listening on ${app.get('port')}`)
+      console.log(`server listening on ${app.get('port')} in ${NODE_ENV}`)
     }
   });
