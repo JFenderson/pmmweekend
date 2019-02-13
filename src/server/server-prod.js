@@ -23,13 +23,13 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cors())
 app.use(express.static(path.join(__dirname + '../../src')));
 app.use(express.static(path.join(__dirname + '../vendors')));
+app.use('/api', routes);
 app.get('*', (_ ,res) => {
   res.sendFile(HTML_FILE);
 })
-app.use('/api', routes);
 
 app.set('port', 3000)
-app.listen(app.get('port'), '127.0.0.1', (err) => {
+app.listen(app.get('port'), 'localhost', (err) => {
     if(err){
       console.log(err)
     }else{
