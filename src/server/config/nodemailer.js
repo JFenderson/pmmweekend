@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import SibApiV3Sdk from 'sib-api-v3-sdk';
 import sendinblue from 'nodemailer-sendinblue-transport';
-import mg  from 'nodemailer-mailgun-transport';
+// import mg  from 'nodemailer-mailgun-transport';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -30,13 +30,5 @@ let sendInBlueTransporter = nodemailer.createTransport({
     }
 });
 
-let mgAuth = {
-    auth: {
-        api_key: process.env.MAILGUN_PK,
-        domain: process.env.MAILGUN_DOMAIN
-    }
-}
 
-var mailgunTransporter = nodemailer.createTransport(mg(mgAuth))
-
-export { transporter, sendInBlueTransporter, mailgunTransporter}
+export { transporter, sendInBlueTransporter}

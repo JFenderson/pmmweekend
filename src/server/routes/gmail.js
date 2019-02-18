@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import { Router } from 'express';
-import { transporter, sendInBlueTransporter, mailgunTransporter } from '../config/nodemailer';
+import { transporter, sendInBlueTransporter} from '../config/nodemailer';
 import SibApiV3Sdk from 'sib-api-v3-sdk';
 import { formatNumber } from 'libphonenumber-js'
 import dotenv from 'dotenv';
