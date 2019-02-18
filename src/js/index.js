@@ -67,7 +67,7 @@ $(document).ready(function () {
     let email = $('#email').val();
     let message = $('#message').val();
 
-    fetch(`http://localhost:3000/api/contact`, {
+    fetch(`https://pmm-site-be081.cloudfunctions.net/api/contact`, {
       method: 'POST',
       body: JSON.stringify({
         name: name, email: email, message: message
@@ -96,7 +96,7 @@ $(document).ready(function () {
     let location = $('#memberLocation').val();
     let crabYear = $('#memberCrabYear').val();
 
-    fetch(`http://localhost:3000/api/user/signup`, {
+    fetch(`https://pmm-site-be081.cloudfunctions.net/api/members/signup`, {
       method: 'POST', // or 'PUT'
       body: JSON.stringify({
         name: name, email: email, phoneNumber: number, location: location, crabYear: crabYear
@@ -140,358 +140,182 @@ $(document).ready(function () {
   }
   });
 
-  const stripePK = 'pk_test_obzu76S8L0GFvqkXbKn204a2';
-  let ticketHandler = (token, args) => {
-    // You can access the token ID with `token.id`.
-    // Get the token ID to your server-side code for use.
-    var tixQuantity = $('#numberOfTickets').val();
-    var tixType = $('#purchase').val();
+  const stripe = 'pk_test_obzu76S8L0GFvqkXbKn204a2';
+  let checkoutMethod = () => {
 
-    // switch(tixQuantity){
-    //   case "1":
-    //     numTix = 1;
-    //     break;
-    //   case "2":
-    //     numTix = 2;
-    //     break;
-    //   case "3":
-    //     numTix = 3;
-    //     break;
-    //   case "4":
-    //     numTix = 4;
-    //     break;
-    //   case "5":
-    //     numTix = 5;
-    //     break;
-    // }
+    var handler = StripeCheckout.configure({ // eslint-disable-line no-undef
+        key: stripe,
+        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+        locale: 'auto',
+        zipCode: true,
+        billingAddress: true,
+        token: async token => {
+            // Pass the received token to our Firebase function
+            let res = await ticketHandler(token);
+            if (res.body.error) return console.log(res.body.error);
 
-    console.log(token)
-    
-    if (tixType == 'individual') {
-      if (tixQuantity == '1') {
-        console.log('1 idv is hitting')
-        fetch(`http://localhost:3000/api/charge/tickets/idv/1`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + stripePK
-          },
-          body: JSON.stringify(token, args)
-        })
-          .then(output => {
-            if (output.status === "succeeded")
-              document.getElementById("shop").innerHTML = "<p>Purchase complete!</p>";
-          })
-          .catch((error) => {
-            if (error.status === 400) {
-              console.warn('Bad request, often due to missing a required parameter.', error);
-            } else if (error.status === 401) {
-              console.warn('No valid API key provided.', error);
-            } else if (error.status === 404) {
-              console.warn('The requested resource doesn\'t exist.', error);
-            } else if (error.status === 500) {
-              console.warn('Purchase Failed', error)
-            }
-          })
-      } else if (tixQuantity == '2') {
-
-        fetch(`http://localhost:3000/api/charge/tickets/idv/2`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + stripePK
-          },
-          body: JSON.stringify(token, args)
-        })
-          .then(output => {
-            if (output.status === "succeeded")
-              document.getElementById("shop").innerHTML = "<p>Purchase complete!</p>";
-          })
-          .catch((error) => {
-            if (error.status === 400) {
-              console.warn('Bad request, often due to missing a required parameter.', error);
-            } else if (error.status === 401) {
-              console.warn('No valid API key provided.', error);
-            } else if (error.status === 404) {
-              console.warn('The requested resource doesn\'t exist.', error);
-            } else if (error.status === 500) {
-              console.warn('Purchase Failed', error)
-            }
-          })
-      } else if (tixQuantity == '3') {
-        fetch(`http://localhost:3000/api/charge/tickets/idv/3`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + stripePK
-          },
-          body: JSON.stringify(token, args)
-        })
-          .then(output => {
-            if (output.status === "succeeded")
-              document.getElementById("shop").innerHTML = "<p>Purchase complete!</p>";
-          })
-          .catch((error) => {
-            if (error.status === 400) {
-              console.warn('Bad request, often due to missing a required parameter.', error);
-            } else if (error.status === 401) {
-              console.warn('No valid API key provided.', error);
-            } else if (error.status === 404) {
-              console.warn('The requested resource doesn\'t exist.', error);
-            } else if (error.status === 500) {
-              console.warn('Purchase Failed', error)
-            }
-          })
-      } else if (tixQuantity == '4') {
-        fetch(`http://localhost:3000/api/charge/tickets/idv/4`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + stripePK
-          },
-          body: JSON.stringify(token, args)
-        })
-          .then(output => {
-            if (output.status === "succeeded")
-              document.getElementById("shop").innerHTML = "<p>Purchase complete!</p>";
-          })
-          .catch((error) => {
-            if (error.status === 400) {
-              console.warn('Bad request, often due to missing a required parameter.', error);
-            } else if (error.status === 401) {
-              console.warn('No valid API key provided.', error);
-            } else if (error.status === 404) {
-              console.warn('The requested resource doesn\'t exist.', error);
-            } else if (error.status === 500) {
-              console.warn('Purchase Failed', error)
-            }
-          })
-      } else if (tixQuantity == '5' ) {
-        fetch(`http://localhost:3000/api/charge/tickets/idv/5`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + stripePK
-          },
-          body: JSON.stringify(token, args)
-        })
-          .then(output => {
-            if (output.status === "succeeded")
-              document.getElementById("shop").innerHTML = "<p>Purchase complete!</p>";
-          })
-          .catch((error) => {
-            if (error.status === 400) {
-              console.warn('Bad request, often due to missing a required parameter.', error);
-            } else if (error.status === 401) {
-              console.warn('No valid API key provided.', error);
-            } else if (error.status === 404) {
-              console.warn('The requested resource doesn\'t exist.', error);
-            } else if (error.status === 500) {
-              console.warn('Purchase Failed', error)
-            }
-          })
-      }
-    } else {
-      if (tixQuantity == '1' && tixType == 'space') {
-        fetch(`http://localhost:3000/api/charge/tickets/tntsp/1`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + stripePK
-          },
-          body: JSON.stringify(token, args)
-        })
-          .then(output => {
-            if (output.status === "succeeded")
-              document.getElementById("shop").innerHTML = "<p>Purchase complete!</p>";
-          })
-          .catch((error) => {
-            if (error.status === 400) {
-              console.warn('Bad request, often due to missing a required parameter.', error);
-            } else if (error.status === 401) {
-              console.warn('No valid API key provided.', error);
-            } else if (error.status === 404) {
-              console.warn('The requested resource doesn\'t exist.', error);
-            } else if (error.status === 500) {
-              console.warn('Purchase Failed', error)
-            }
-          })
-      } else if (tixQuantity == '2' && tixType == 'space') {
-        fetch(`http://localhost:3000/api/charge/tickets/tntsp/2`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + stripePK
-          },
-          body: JSON.stringify(token, args)
-        })
-          .then(output => {
-            if (output.status === "succeeded")
-              document.getElementById("shop").innerHTML = "<p>Purchase complete!</p>";
-          })
-          .catch((error) => {
-            if (error.status === 400) {
-              console.warn('Bad request, often due to missing a required parameter.', error);
-            } else if (error.status === 401) {
-              console.warn('No valid API key provided.', error);
-            } else if (error.status === 404) {
-              console.warn('The requested resource doesn\'t exist.', error);
-            } else if (error.status === 500) {
-              console.warn('Purchase Failed', error)
-            }
-          })
-      } else if (tixQuantity == '3' && tixType == 'space') {
-        fetch(`http://localhost:3000/api/charge/tickets/tntsp/3`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + stripePK
-          },
-          body: JSON.stringify(token, args)
-        })
-          .then(output => {
-            if (output.status === "succeeded")
-              document.getElementById("shop").innerHTML = "<p>Purchase complete!</p>";
-          })
-          .catch((error) => {
-            if (error.status === 400) {
-              console.warn('Bad request, often due to missing a required parameter.', error);
-            } else if (error.status === 401) {
-              console.warn('No valid API key provided.', error);
-            } else if (error.status === 404) {
-              console.warn('The requested resource doesn\'t exist.', error);
-            } else if (error.status === 500) {
-              console.warn('Purchase Failed', error)
-            }
-          })
-      }
-    }
-  }
-
-    // let ticketHandler = (token, args) => {
- 
-    // // let tixQuantity;
-    // // let tixType;
-
-    // console.log(token)
-    
-    //     fetch(`http://localhost:3000/api/charge/tickets/idv/1`, {
-    //       method: "POST",
-    //       headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json',
-    //         'Authorization': 'Bearer' + stripePK
-    //       },
-    //       body: JSON.stringify(token, args)
-    //     })
-    //       .then(output => {
-    //         console.log("Purchase succeeded:", output);
-    //       })
-    //       .catch((error) => {
-    //         if (error.status === 400) {
-    //           console.warn('Bad request, often due to missing a required parameter.', error);
-    //         } else if (error.status === 401) {
-    //           console.warn('No valid API key provided.', error);
-    //         } else if (error.status === 404) {
-    //           console.warn('The requested resource doesn\'t exist.', error);
-    //         } else if (error.status === 500) {
-    //           console.warn('Purchase Failed', error)
-    //         }
-    //       })
-    //     }
-
-
-  var handler = StripeCheckout.configure({ // eslint-disable-line no-undef
-    key: stripePK,
-    image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-    locale: 'auto',
-    zipCode: true,
-    billingAddress: true,
-    token: ticketHandler,
-    opened: () => {
-      console.log('opened')
-    },
-    closed: function (error) {
-      if (error) {
-        console.log(error)
-      } else {
-        console.log('Payment Sent!')
-      }
-    }
-  });
-
-
-
-  $('#ticketBtn').click((e) => {
-    e.preventDefault();
-    let numTix;
-    var tixQuantity = $('#numberOfTickets').val();
-    var tixType = $('#purchase').val();
-
-    switch(tixQuantity){
-      case "1":
-        numTix = 1;
-        break;
-      case "2":
-        numTix = 2;
-        break;
-      case "3":
-        numTix = 3;
-        break;
-      case "4":
-        numTix = 4;
-        break;
-      case "5":
-        numTix = 5;
-        break;
-    }
-    
-    // var custInfo = {
-    //   name: $('#ticketName').val(),
-    //   phoneNumber: $('#ticketPhoneNumber').val(),
-    //   email: $('#ticketEmail').val(),
-    //   zipcode: $('#ticketZip').val()
-    // };
-    console.log({'tixquant': tixQuantity, 'tixtype': tixType })
-    console.log(tixType == 'individual')
-    console.log(tixQuantity == '1')
-    console.log(`number of tickets is ${numTix}`)
-
-    if (tixType == "individual") {
-      // Open Checkout with further options:
-      handler.open({
-        name: 'PMM Picnic',
-        description: 'Individual Tickets',
-        amount: 1000 * numTix
+        }
       });
+
+    $('#ticketBtn').on('click', (e) => {
+        e.preventDefault();
+
+        var tixQuanity = $('#numberOfTickets').val();
+        var tixType = $('#purchase').val();
+
+        if (tixType == "individual") {
+            // Open Checkout with further options:
+            handler.open({
+            name: 'PMM Picnic',
+            description: 'Individual Tickets',
+            amount: 1000 * tixQuanity
+            });
+        }
+        else if (tixType == "space") {
+            if (tixQuanity == "1" || tixQuanity == "2" || tixQuanity == "3") {
+            // Open Checkout with further options:
+                handler.open({
+                name: 'PMM Picnic',
+                description: 'Tent Space',
+                amount: 12000 * tixQuanity,
+            });
+            } else {
+                alert('You can only purchase 3 tent spaces per transaction, please contact the committee if more is needed.');
+            }
+        }
+    });
+
+    // Close Checkout on page navigation
+    window.addEventListener('popstate', () => handler.close());
+    
+}
+
+let ticketHandler = async (token, args) => {
+  var tixQuanity = $('#numberOfTickets').val();
+  var tixType = $('#purchase').val();
+
+    if (tixType == 'individual') {
+        if (tixQuanity == 1) {
+            let res = await fetch(`https://pmm-site-be081.cloudfunctions.net/api/charge/tickets/idv/1`, {
+            method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + stripe
+            },
+            body: JSON.stringify(token, args)
+        })
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
+
+        } else if (tixQuanity == 2) {
+
+        let res = await fetch(`https://pmm-site-be081.cloudfunctions.net/api/charge/tickets/idv/2`, {
+            method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + stripe
+            },
+            body: JSON.stringify(token, args)
+        })
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
+
+        } else if (tixQuanity == 3) {
+        let res = await fetch(`https://pmm-site-be081.cloudfunctions.net/api/charge/tickets/idv/3`, {
+            method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + stripe
+            },
+            body: JSON.stringify(token, args)
+        })
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
+
+        } else if (tixQuanity == 4) {
+        let res = await fetch(`https://pmm-site-be081.cloudfunctions.net/api/charge/tickets/idv/4`, {
+            method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + stripe
+            },
+            body: JSON.stringify(token, args)
+        })
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
+
+        } else if (tixQuanity == 5) {
+        let res = await fetch(`https://pmm-site-be081.cloudfunctions.net/api/charge/tickets/idv/5`, {
+            method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + stripe
+            },
+            body: JSON.stringify(token, args)
+        })
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
+
+        }
+    } else {
+        if (tixQuanity == 1) {
+        let res = await fetch(`https://pmm-site-be081.cloudfunctions.net/api/charge/tickets/tntsp/1`, {
+            method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + stripe
+            },
+            body: JSON.stringify(token, args)
+        })
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
+
+        } else if (tixQuanity == 2) {
+        let res = await fetch(`https://pmm-site-be081.cloudfunctions.net/api/charge/tickets/tntsp/2`, {
+            method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + stripe
+            },
+            body: JSON.stringify(token, args)
+        })
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
+
+        } else if (tixQuanity == 3) {
+        let res = await fetch(`https://pmm-site-be081.cloudfunctions.net/api/charge/tickets/tntsp/3`, {
+            method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + stripe
+            },
+            body: JSON.stringify(token, args)
+        })
+        const data = await res.json();
+        data.body = JSON.parse(data.body);
+        return data;
+
+        }
     }
-    else if (tixType == "space") {
-      if (numTix == 1 || numTix == 2 || numTix == 3) {
-        // Open Checkout with further options:
-        handler.open({
-          name: 'PMM Picnic',
-          description: 'Tent Space',
-          amount: 12000 * numTix,
-        });
-      } else {
-        alert('You can only purchase 3 tent spaces per transaction, please contact the committee if more is needed.');
-      }
-    }
-  });
+}
 
 
-  // Close Checkout on page navigation:
-  $(window).on('popstate', function () {
-    handler.close();
-  });
+checkoutMethod();
   //END STRIPE
 
   //START IMAGE GALLERY

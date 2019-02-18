@@ -55,29 +55,21 @@ module.exports = {
       },
       {
         // Loads images into CSS and Javascript files
-        test: /\.jpg$/,
+        test: /\.(jpe?g|png|gif|svg)$/i,
         use: [{loader: "url-loader"}]
       },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        use: ['file-loader']
-      },
+      // {
+      //   test: /\.(jpe?g|png|gif|svg)$/i,
+      //   use: ['file-loader']
+      // },
       {
         // Loads CSS into a file when you import it via Javascript
         // Rules are set in MiniCssExtractPlugin
         test: /\.css$/,
         use: [
+          'css-loader',
           'style-loader'        
         ]
-      },
-      {
-        test: /\.(sa|sc|c)ss$/,
-        use: [
-          // fallback to style-loader in development
-           'style-loader',
-          'css-loader',
-          'sass-loader',
-        ],
       }
     ]
   },
